@@ -24,6 +24,7 @@ module Moribus
     def association(name)
       association = super
       reflection = self.class.reflect_on_association(name)
+      return association unless reflection.present?
       case reflection.macro
       when :belongs_to
         association.extend(HasAggregatedExtension) if reflection.options[:aggregated]
